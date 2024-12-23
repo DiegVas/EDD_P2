@@ -1,0 +1,16 @@
+// Lista circular doblemente enlazada de los clientes
+digraph {
+	rankdir=LR
+	1 [label="Juan (1)"]
+	1 -> 2 [constraint=true]
+	1 -> 4 [_dir=back constraint=true]
+	2 [label="Maria (2)"]
+	2 -> 3 [constraint=true]
+	2 -> 1 [_dir=back constraint=true]
+	3 [label="Pedro (3)"]
+	3 -> 4 [constraint=true]
+	3 -> 2 [_dir=back constraint=true]
+	4 [label="Luis (4)"]
+	4 -> 1 [constraint=true]
+	4 -> 3 [_dir=back constraint=true]
+}
