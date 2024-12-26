@@ -75,7 +75,7 @@ class circular_doubly_linked:
             if current == self.head:
                 break
 
-        dot.render('circular_doubly_linked_list', format='png', view=True)
+        dot.render('circular_doubly_linked_list', "./src", format='png', view=True)
 
     def display(self):
         print("Circular Doubly Linked List:")
