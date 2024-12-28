@@ -1,12 +1,13 @@
-from controllers.nodes.linked_node import Node
+from controllers.nodes.doubly_linked_node import Node
 from graphviz import Digraph
+from controllers.classes.client import client
 
 
 class circular_doubly_linked:
     def __init__(self):
         self.head = None
 
-    def insert(self, new_client):
+    def insert(self, new_client: client):
         new_node = Node(new_client)
         if self.head is None:
             self.head = new_node
@@ -23,11 +24,11 @@ class circular_doubly_linked:
             if current == self.head and new_client.dpi < self.head.client.dpi:
                 self.head = new_node
 
-    def __delete__(self, client):
+    def __delete__(self, client_remove: client):
         current = self.head
-        while current.next != self.head and current.client.dpi != client.dpi:
+        while current.next != self.head and current.client.dpi != client_remove.dpi:
             current = current.next
-        if current.client.dpi == client.dpi:
+        if current.client.dpi == client_remove.dpi:
             current.prev.next = current.next
             current.next.prev = current.prev
             if current == self.head:
@@ -37,7 +38,7 @@ class circular_doubly_linked:
             # ! Cliente no encontrado
             print("Client not found")
 
-    def search(self, dpi):
+    def search(self, dpi: int) -> client:
         current = self.head
         while current.next != self.head and current.client.dpi != dpi:
             current = current.next
@@ -48,13 +49,13 @@ class circular_doubly_linked:
             print("Client not found")
             return None
 
-    def update(self, client):
+    def update(self, new_client: client):
         # ! No esta permitido modificar el dpi
         current = self.head
-        while current.next != self.head and current.client.dpi != client.dpi:
+        while current.next != self.head and current.client.dpi != new_client.dpi:
             current = current.next
-        if current.client.dpi == client.dpi:
-            current.client = client
+        if current.client.dpi == new_client.dpi:
+            current.client = new_client
         else:
             # ! Cliente no encontrado
             print("Client not found")

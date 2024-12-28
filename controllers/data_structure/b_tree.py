@@ -1,5 +1,5 @@
 from graphviz import Source
-
+from controllers.classes.vehicles import vehicles
 from controllers.nodes.b_tree_node import BTreeNode
 
 
@@ -8,28 +8,28 @@ class bTree:
         self.root = BTreeNode(True)
         self.order: int = order
 
-    def insert(self, value: int):
+    def insert(self, vehicle_value: vehicles):
         root = self.root
-        self.insert_value_no_complete(root, value)
+        self.insert_value_no_complete(root, vehicle_value)
         if len(root.keys) > self.order - 1:
             temp: BTreeNode = BTreeNode()
             self.root = temp
             temp.children.insert(0, root)
             self.split_child(temp, 0)
 
-    def insert_value_no_complete(self, root: BTreeNode, value: int):
+    def insert_value_no_complete(self, root: BTreeNode, vehicle_value: vehicles):
         counter: int = len(root.keys) - 1
         if root.leaf:
             root.keys.append(None)
-            while counter >= 0 and value < root.keys[counter]:
+            while counter >= 0 and vehicle_value.plate < root.keys[counter].plate:
                 root.keys[counter + 1] = root.keys[counter]
                 counter -= 1
-            root.keys[counter + 1] = value
+            root.keys[counter + 1] = vehicle_value
         else:
-            while counter >= 0 and value < root.keys[counter]:
+            while counter >= 0 and vehicle_value < root.keys[counter]:
                 counter -= 1
             counter += 1
-            self.insert_value_no_complete(root.children[counter], value)
+            self.insert_value_no_complete(root.children[counter], vehicle_value)
             if len(root.children[counter].keys) > self.order - 1:
                 self.split_child(root, counter)
 
@@ -45,7 +45,7 @@ class bTree:
             nodo_temp.children = child.children[i_middle + 1: i_middle * 2 + 2]
             child.children = child.children[0:i_middle + 1]
 
-    def search_key(self, value: int, root: BTreeNode = None):
+    def search_key(self, value: vehicles, root: BTreeNode = None):
         if root is not None:
             i = 0
             while i < len(root.keys) and value > root.keys[i]:
@@ -78,9 +78,9 @@ class bTree:
 
         for i in root.keys:
             if counter == len(root.keys) - 1:
-                tree += f"<f{counter}>|{i}|<f{counter + 1}>|"
+                tree += f"<f{counter}>|{i.plate}|<f{counter + 1}>|"
                 break
-            tree += f"<f{counter}>|{i}|"
+            tree += f"<f{counter}>|{i.plate}|"
             counter += 1
 
         tree += "\"];\n\t"
@@ -114,7 +114,7 @@ class bTree:
             self.delete_merge(node, 0, 1)
         return self.delete_successor(node.children[0])
 
-    def delete(self, root: BTreeNode, value: int):
+    def delete(self, root: BTreeNode, value: vehicles):
         t = self.order
         i = 0
         # Encontrar la posición correcta del valor
@@ -153,7 +153,7 @@ class bTree:
                 self.delete(root.children[i - 2], value)
 
     # Delete internal node
-    def delete_internal_node(self, node: BTreeNode, value: int, i):
+    def delete_internal_node(self, node: BTreeNode, value: vehicles, i):
         t = self.order
         if node.leaf:
             if node.keys[i] == value:
