@@ -1,11 +1,11 @@
 class client:
     def __init__(self, dpi, name, last_name, gender, phone, address):
-        self.dpi = dpi
-        self.name = name
-        self.lastName = last_name
-        self.gender = gender
-        self.phone = phone
-        self.address = address
+        self.dpi:int = dpi
+        self.name:str = name
+        self.lastName:str = last_name
+        self.gender:str = gender
+        self.phone:int = phone
+        self.address:str = address
 
     def setter(self, data: __init__):
         self.dpi = data.dpi

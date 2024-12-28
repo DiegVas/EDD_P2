@@ -1,14 +1,13 @@
-import tkinter as tk
-from tkinter import ttk
 import customtkinter as ctk
-from PIL import Image, ImageTk
-import os
-from pathlib import Path
+from GUI.client.client_gui import ClientesPage
 
 
 class ModernDashboard(ctk.CTk):
-    def __init__(self):
+    def __init__(self, clients_estr, vehicles_estr, routes_estr):
         super().__init__()
+        self.clients_estr = clients_estr
+        self.vehicles_estr = vehicles_estr
+        self.routes_estr = routes_estr
 
         self.colors = {
             'primary': '#0052FF',  # Azul brillante
@@ -98,7 +97,8 @@ class ModernDashboard(ctk.CTk):
         self.title_label = ctk.CTkLabel(
             self.header,
             text="📊 Dashboard",
-            font=ctk.CTkFont(size=24, weight="bold")
+            font=ctk.CTkFont(size=24, weight="bold"),
+            text_color=self.colors['primary']
         )
         self.title_label.grid(row=0, column=0, padx=20, pady=20, sticky="w")
 
@@ -140,6 +140,8 @@ class ModernDashboard(ctk.CTk):
 
         if page_name == "Dashboard":
             self.show_dashboard_content()
+        elif page_name == "Clientes":
+            ClientesPage(self.clients_estr,self.content_container, self.colors)
         else:
             self.show_page_content(page_name)
 

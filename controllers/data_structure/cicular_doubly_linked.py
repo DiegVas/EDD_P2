@@ -8,6 +8,7 @@ class circular_doubly_linked:
         self.head = None
 
     def insert(self, new_client: client):
+        print("Inserting.....")
         new_node = Node(new_client)
         if self.head is None:
             self.head = new_node
