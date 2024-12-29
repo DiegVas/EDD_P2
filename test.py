@@ -2,12 +2,11 @@ from controllers.classes.vertex import vertex
 from controllers.data_structure.Linked_list import linked_list
 from controllers.data_structure.adyance_list import adjacency_list
 from controllers.classes.routes import routes
+from controllers.data_structure.path_logaritme import shortest_path
 
 
 def main():
     adjacency = adjacency_list()
-    # Crear vértices (nodos)
-    vertices = [vertex(str(i)) for i in range(1, 21)]  # Nodos del 1 al 20
 
     # Crear rutas (conexiones con pesos)
     routesList = [
@@ -31,10 +30,10 @@ def main():
 
     path_finder = shortest_path(adjacency)
     # Encontrar el camino más corto
-    path, distance = path_finder.find_shortest_path("1", "7")
+    path= path_finder.find_shortest_path("1", "7")
 
     # Imprimir el resultado
-    path_finder.print_path(path, distance)
+    path_finder.print_path(path.path, path.distance)
 
 
 if __name__ == "__main__":

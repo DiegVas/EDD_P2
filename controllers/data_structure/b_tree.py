@@ -26,7 +26,7 @@ class bTree:
                 counter -= 1
             root.keys[counter + 1] = vehicle_value
         else:
-            while counter >= 0 and vehicle_value < root.keys[counter]:
+            while counter >= 0 and vehicle_value.plate < root.keys[counter].plate:
                 counter -= 1
             counter += 1
             self.insert_value_no_complete(root.children[counter], vehicle_value)
@@ -45,12 +45,12 @@ class bTree:
             nodo_temp.children = child.children[i_middle + 1: i_middle * 2 + 2]
             child.children = child.children[0:i_middle + 1]
 
-    def search_key(self, value: vehicles, root: BTreeNode = None):
+    def search_key(self, value: str, root: BTreeNode = None):
         if root is not None:
             i = 0
-            while i < len(root.keys) and value > root.keys[i]:
+            while i < len(root.keys) and value > root.keys[i].plate:
                 i += 1
-            if i < len(root.keys) and value == root.keys[i]:
+            if i < len(root.keys) and value == root.keys[i].plate:
                 return root.keys[i]
             elif root.leaf:
                 return None
@@ -59,6 +59,22 @@ class bTree:
 
         else:
             return self.search_key(value, self.root)
+
+    def update(self, value: vehicles, root:BTreeNode = None):
+        if root is not None:
+            i = 0
+            while i < len(root.keys) and value.plate > root.keys[i].plate:
+                i += 1
+            if i < len(root.keys) and value.plate == root.keys[i].plate:
+                root.keys[i] = value
+            elif root.leaf:
+                return None
+            else:
+                return self.update(value, root.children[i])
+
+        else:
+            return self.update(value, self.root)
+
 
     def render_b_tree(self):
         dot: str = "digraph G {\n\t"
@@ -69,7 +85,8 @@ class bTree:
         dot += self.print_tree(self.root)
         dot += "\n}"
         src = Source(dot)
-        src.render("b_tree", "./src", format="png", view=True)
+        src.render("b_tree", "./src", format="png")
+        src.render("b_tree", "./src", format="pdf")
 
     def print_tree(self, node: BTreeNode, id: list[int] = [0]) -> str:
         root: BTreeNode = node
@@ -114,21 +131,21 @@ class bTree:
             self.delete_merge(node, 0, 1)
         return self.delete_successor(node.children[0])
 
-    def delete(self, root: BTreeNode, value: vehicles):
+    def delete(self, root: BTreeNode, value: int):
         t = self.order
         i = 0
         # Encontrar la posición correcta del valor
-        while i < len(root.keys) and value > root.keys[i]:
+        while i < len(root.keys) and value > root.keys[i].plate:
             i += 1
 
         # Si estamos en una hoja, simplemente eliminamos el valor si existe
         if root.leaf:
-            if i < len(root.keys) and root.keys[i] == value:
+            if i < len(root.keys) and root.keys[i].plate == value:
                 root.keys.pop(i)
             return
 
         # Si encontramos el valor en el nodo actual
-        if i < len(root.keys) and root.keys[i] == value:
+        if i < len(root.keys) and root.keys[i].plate == value:
             self.delete_internal_node(root, value, i)
             return
 

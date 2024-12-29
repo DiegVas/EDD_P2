@@ -1,11 +1,17 @@
 import customtkinter as ctk
 from GUI.client.add_client import AgregarClienteWindow
+from GUI.client.modify_client import ModificarClienteWindow
+from GUI.client.delete_client import EliminarClienteWindow
+from GUI.client.view_client import VerClienteWindow
+from GUI.client.import_clients import ImportarClientesWindow
+from GUI.client.show_data_struct import MostrarEstructuraWindow
 from controllers.nodes.doubly_linked_node import Node
+from controllers.data_structure.cicular_doubly_linked import circular_doubly_linked
 
 
 class ClientesPage(ctk.CTkFrame):
     def __init__(self, clients_ester, parent, colors):
-        self.clients_est = clients_ester
+        self.clients_est: circular_doubly_linked = clients_ester
         super().__init__(parent, fg_color=colors['white'])
         self.colors = colors
         self.pack(fill="both", expand=True)
@@ -26,11 +32,11 @@ class ClientesPage(ctk.CTkFrame):
 
         buttons = [
             ("➕ Agregar", self.open_add_client_window),
-            ("📁 Importar", "import"),
-            ("✏️ Modificar", "edit"),
-            ("🗑️ Eliminar", "delete"),
-            ("ℹ️ Mostrar Información", "info"),
-            ("📊 Mostrar Estructura", "structure")
+            ("📁 Importar",self.open_import_client_window),
+            ("✏️ Modificar",self.open_modify_client_window),
+            ("🗑️ Eliminar", self.open_delete_client_window),
+            ("ℹ️ Mostrar Información",self.open_view_client_window),
+            ("📊 Mostrar Estructura", self.open_show_structure_window)
         ]
 
         for text, command in buttons:
@@ -45,6 +51,22 @@ class ClientesPage(ctk.CTkFrame):
 
     def open_add_client_window(self):
         AgregarClienteWindow(self.clients_est, self, self.colors)
+
+    def open_delete_client_window(self):
+        EliminarClienteWindow(self.clients_est, self, self.colors)
+
+    def open_modify_client_window(self):
+        ModificarClienteWindow(self.clients_est, self, self.colors)
+
+    def open_show_structure_window(self):
+        self.clients_est.display_graph();
+        MostrarEstructuraWindow(self, self.colors)
+
+    def open_view_client_window(self):
+        VerClienteWindow(self.clients_est, self, self.colors)
+
+    def open_import_client_window(self):
+        ImportarClientesWindow(self.clients_est, self, self.colors)
 
     def display_users(self):
         # Frame principal para la tabla

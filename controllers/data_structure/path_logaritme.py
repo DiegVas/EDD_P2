@@ -2,8 +2,12 @@ from controllers.classes.vertex import vertex
 from controllers.data_structure.Linked_list import linked_list
 from controllers.nodes.path_info import path_info
 
+class path:
+    def __init__(self, value, wide: int):
+        self.path = value
+        self.distance = wide
 
-class path_list:
+class path_list_node:
     def __init__(self):
         self.head = None
 
@@ -46,8 +50,8 @@ class shortest_path:
 
     def find_shortest_path(self, start: str, end: str):
         # Inicializar estructuras
-        unvisited = path_list()
-        path_tracker = path_list()
+        unvisited = path_list_node()
+        path_tracker = path_list_node()
 
         # Inicializar el nodo de inicio
         unvisited.insert(start, 0, "")
@@ -55,13 +59,14 @@ class shortest_path:
         while True:
             current = unvisited.get_min()
             if current is None:
-                return None, None  # No hay camino
+                return None
 
             # Guardar información del camino
             path_tracker.insert(current.node_value, current.distance, current.previous)
 
             if current.node_value == end:
-                return self._get_path(path_tracker, start, end), current.distance
+                path_list:path = path(self._get_path(path_tracker, start, end),current.distance)
+                return path_list
 
             # Obtener el vértice actual
             current_vertex = self._find_vertex(current.node_value)
@@ -85,7 +90,7 @@ class shortest_path:
             current = current.next
         return None
 
-    def _get_path(self, path_tracker: path_list, start: str, end: str):
+    def _get_path(self, path_tracker: path_list_node, start: str, end: str):
         result = linked_list()
         current_value = end
 

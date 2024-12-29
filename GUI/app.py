@@ -1,13 +1,17 @@
 import customtkinter as ctk
 from GUI.client.client_gui import ClientesPage
+from GUI.vehicles.vehicle_gui import VehiculosPage
+from GUI.routes.routes_gui import RutasPage
+from GUI.trips.trips_gui import ViajesPage
 
 
 class ModernDashboard(ctk.CTk):
-    def __init__(self, clients_estr, vehicles_estr, routes_estr):
+    def __init__(self, clients_estr, vehicles_estr, routes_estr, trips_estr):
         super().__init__()
         self.clients_estr = clients_estr
         self.vehicles_estr = vehicles_estr
         self.routes_estr = routes_estr
+        self.trips_estr = trips_estr
 
         self.colors = {
             'primary': '#0052FF',  # Azul brillante
@@ -142,8 +146,16 @@ class ModernDashboard(ctk.CTk):
             self.show_dashboard_content()
         elif page_name == "Clientes":
             ClientesPage(self.clients_estr,self.content_container, self.colors)
+        elif page_name == "Vehículos":
+            VehiculosPage(self.vehicles_estr,self.content_container, self.colors)
+        elif page_name == "Rutas":
+            RutasPage(self.routes_estr, self.content_container, self.colors)
+        elif page_name == "Viajes":
+            ViajesPage(self.trips_estr,self.content_container, self.colors, self.clients_estr, self.vehicles_estr, self.routes_estr)
         else:
             self.show_page_content(page_name)
+
+
 
     def show_dashboard_content(self):
         welcome_label = ctk.CTkLabel(

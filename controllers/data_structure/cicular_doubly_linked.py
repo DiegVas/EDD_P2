@@ -8,7 +8,7 @@ class circular_doubly_linked:
         self.head = None
 
     def insert(self, new_client: client):
-        print("Inserting.....")
+        print(f"Agregando {new_client.dpi}, {new_client.name}")
         new_node = Node(new_client)
         if self.head is None:
             self.head = new_node
@@ -25,11 +25,12 @@ class circular_doubly_linked:
             if current == self.head and new_client.dpi < self.head.client.dpi:
                 self.head = new_node
 
-    def __delete__(self, client_remove: client):
+    def delete(self, client_remove: int):
+        print(f"Eliminadno: {client_remove}")
         current = self.head
-        while current.next != self.head and current.client.dpi != client_remove.dpi:
+        while current.next != self.head and current.client.dpi != client_remove:
             current = current.next
-        if current.client.dpi == client_remove.dpi:
+        if current.client.dpi == client_remove:
             current.prev.next = current.next
             current.next.prev = current.prev
             if current == self.head:
@@ -77,7 +78,8 @@ class circular_doubly_linked:
             if current == self.head:
                 break
 
-        dot.render('circular_doubly_linked_list', "./src", format='png', view=True)
+        dot.render('circular_doubly_linked_list', "./src", format='png')
+        dot.render('circular_doubly_linked_list', "./src", format='pdf')
 
     def display(self):
         print("Circular Doubly Linked List:")

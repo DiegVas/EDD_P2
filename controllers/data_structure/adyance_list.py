@@ -28,7 +28,7 @@ class adjacency_list:
         aux: linked_node = self.vertices.head
 
     def print(self):
-        dot = 'digraph G {\n\tbgcolor="#1a1a1a"\n\tedge [arrowhead=none fontcolor=white color="#ff5400"];\n\t';
+        dot = 'digraph G {\n\tbgcolor="#1a1a1a"\n\tedge [arrowhead=none fontcolor=white color="#ff5400"];\n\t nodesep=0\n\t';
         dot += 'node [shape=circle fixedsize=shape width=0.5 fontsize=7 style=filled fillcolor="#313638" fontcolor=white ';
         dot += 'color=transparent];\n\t';
 
@@ -42,5 +42,5 @@ class adjacency_list:
         dot += "}"
 
         src = Source(dot, engine="neato")
-        src.render("b_tree", "./src", format="pdf", view=True)
-        src.render("b_tree", "./src", format="png", view=True)
+        src.render("adyance", "./src", format="pdf", view=True)
+        src.render("adyance", "./src", format="png", view=True)
