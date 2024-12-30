@@ -3,6 +3,7 @@ from GUI.client.client_gui import ClientesPage
 from GUI.vehicles.vehicle_gui import VehiculosPage
 from GUI.routes.routes_gui import RutasPage
 from GUI.trips.trips_gui import ViajesPage
+from GUI.Reports.report_gui import TopOptionsPage
 
 
 class ModernDashboard(ctk.CTk):
@@ -151,7 +152,9 @@ class ModernDashboard(ctk.CTk):
         elif page_name == "Rutas":
             RutasPage(self.routes_estr, self.content_container, self.colors)
         elif page_name == "Viajes":
-            ViajesPage(self.trips_estr,self.content_container, self.colors, self.clients_estr, self.vehicles_estr, self.routes_estr)
+            ViajesPage(self.trips_estr, self.content_container, self.colors, self.clients_estr, self.vehicles_estr, self.routes_estr)
+        elif page_name == "Reportes":
+            TopOptionsPage(self.content_container, self.colors, self.trips_estr)
         else:
             self.show_page_content(page_name)
 

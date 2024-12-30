@@ -6,7 +6,7 @@ class linked_list():
     def __init__(self):
         self.head: linked_node = None
 
-    def insert_final(self, value: vertex, wed:int=0) -> linked_node:
+    def insert_final(self, value: vertex, wed: int = 0) -> linked_node:
         aux: linked_node = self.head
         value.wide = wed
         if aux is None:

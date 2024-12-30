@@ -1,12 +1,13 @@
 import customtkinter as ctk
 from GUI.trips.add_trip import AgregarViajeWindow
-from controllers.data_structure.b_tree import bTree
+from controllers.data_structure.trip_linked_linked import trip_linked_linked
 from controllers.nodes.b_tree_node import BTreeNode
 from controllers.nodes.trip_linked_node import trip_linked_node
+from GUI.trips.show_data_struct import MostrarEstructuraWindow
 
 class ViajesPage(ctk.CTkFrame):
     def __init__(self, trips_estr, parent, colors, clients, vehicles, adjacency):
-        self.trips_estr: bTree = trips_estr
+        self.trips_estr: trip_linked_linked = trips_estr
         super().__init__(parent, fg_color=colors['white'])
         self.colors = colors
         self.pack(fill="both", expand=True)
@@ -51,9 +52,9 @@ class ViajesPage(ctk.CTkFrame):
         AgregarViajeWindow(self.trips_estr, self, self.colors, self.clients, self.vehicles, self.adjacency)
 
     def open_show_structure_window(self):
-        self.trips_estr.render_b_tree()
-        pass
-        #MostrarEstructuraWindow(self, self.colors)
+        self.trips_estr.generate_graph()
+        MostrarEstructuraWindow(self, self.colors)
+
 
     def display_trips(self):
         headers = ["", "ID", "Origen", "Destino", "Hora de Inicio", "Cliente", "Vehículo", "Costo"]

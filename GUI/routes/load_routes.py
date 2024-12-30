@@ -31,6 +31,6 @@ class CargarRutasWindow(ctk.CTkToplevel):
                     time = float(time.replace('%', ''))
                     new_route = routes(origin, destination, time)
                     self.routes_estr.add_vertex(new_route)
-        self.parent.update_structure_image()
         self.routes_estr.print()
+        self.parent.update_structure_image()
         self.destroy()

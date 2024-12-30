@@ -39,6 +39,10 @@ class RutasPage(ctk.CTkFrame):
 
     def update_structure_image(self):
         image_path = "src/adyance.png"  # Path to your image file
-        image = Image.open(image_path)
-        ctk_image = CTkImage(light_image=image, dark_image=image, size=(600, 600))
-        self.image_label.configure(image=ctk_image)
+        try:
+            image = Image.open(image_path)
+            ctk_image = CTkImage(light_image=image, dark_image=image, size=(600, 600))
+            self.image_label.configure(image=ctk_image)
+        except FileNotFoundError:
+            pass
+

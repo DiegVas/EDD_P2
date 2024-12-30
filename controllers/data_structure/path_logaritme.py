@@ -1,10 +1,10 @@
 from controllers.classes.vertex import vertex
 from controllers.data_structure.Linked_list import linked_list
 from controllers.nodes.path_info import path_info
-
+from controllers.nodes.linked_node import linked_node
 class path:
-    def __init__(self, value, wide: int):
-        self.path = value
+    def __init__(self, value:linked_list, wide: int):
+        self.path:linked_list = value
         self.distance = wide
 
 class path_list_node:
@@ -51,13 +51,13 @@ class shortest_path:
     def find_shortest_path(self, start: str, end: str):
         # Inicializar estructuras
         unvisited = path_list_node()
-        path_tracker = path_list_node()
+        path_tracker:path_list_node = path_list_node()
 
         # Inicializar el nodo de inicio
         unvisited.insert(start, 0, "")
 
         while True:
-            current = unvisited.get_min()
+            current:path_info = unvisited.get_min()
             if current is None:
                 return None
 
@@ -66,6 +66,7 @@ class shortest_path:
 
             if current.node_value == end:
                 path_list:path = path(self._get_path(path_tracker, start, end),current.distance)
+
                 return path_list
 
             # Obtener el vértice actual
@@ -97,8 +98,11 @@ class shortest_path:
         while current_value != start:
             current = path_tracker.head
             while current:
+
                 if current.node_value == current_value:
-                    result.insert_final(vertex(current_value))
+
+                    result.insert_final(vertex(current_value, current.distance),current.distance)
+                    print(current.distance)
                     current_value = current.previous
                     break
                 current = current.next
@@ -110,7 +114,7 @@ class shortest_path:
         current = result.head
         while current:
             temp_vertex = vertex(current.value.value)
-            reversed_path.insert_final(temp_vertex)
+            reversed_path.insert_final(temp_vertex, current.value.wide)
             current = current.next
 
         return reversed_path
@@ -121,7 +125,7 @@ class shortest_path:
             return
 
         result = ""
-        current = path.head
+        current:linked_node = path.head
         while current:
             result += current.value.value
             if current.next:

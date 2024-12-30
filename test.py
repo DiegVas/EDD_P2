@@ -30,7 +30,7 @@ def main():
 
     path_finder = shortest_path(adjacency)
     # Encontrar el camino más corto
-    path= path_finder.find_shortest_path("1", "7")
+    path= path_finder.find_shortest_path("1", "2")
 
     # Imprimir el resultado
     path_finder.print_path(path.path, path.distance)
