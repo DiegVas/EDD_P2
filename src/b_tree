@@ -1,0 +1,13 @@
+digraph G {
+	fontcolor=white;
+	nodesep=0.5;
+	splines=false
+	node [shape=record width=1.2 style=filled fillcolor="#313638"fontcolor=white color=transparent];
+	edge [fontcolor=white color="#0070C9"];
+	n0[label=" <f0>|441NEY|<f1>|"];
+	n0:f0 -> n1;
+	n1[label=" <f0>|100KAR|<f1>|216SBS|<f2>|"];
+	n0:f1 -> n2;
+	n2[label=" <f0>|693XCN|<f1>|970GUB|<f2>|"];
+	
+}

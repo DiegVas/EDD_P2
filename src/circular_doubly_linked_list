@@ -1,0 +1,13 @@
+// Lista circular doblemente enlazada de los clientes
+digraph {
+	rankdir=LR
+	3000853700101 [label="Elian (3000853700101)"]
+	3000853700101 -> 3000853700102 [constraint=true]
+	3000853700101 -> 3000853700103 [_dir=back constraint=true]
+	3000853700102 [label="Leila (3000853700102)"]
+	3000853700102 -> 3000853700103 [constraint=true]
+	3000853700102 -> 3000853700101 [_dir=back constraint=true]
+	3000853700103 [label="Emy (3000853700103)"]
+	3000853700103 -> 3000853700101 [constraint=true]
+	3000853700103 -> 3000853700102 [_dir=back constraint=true]
+}
